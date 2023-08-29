@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import female from './images/female.jpg';
+import male from './images/male.jpg';
 
 const Employees = () => {
 
-  const [employees, setEmployess] = useState([{
+const [employees, setEmployess] = useState([{
     id: 1,
     fullName: "Bob Jones",
     designation: "JavaScript Developer",
@@ -85,16 +87,55 @@ const Employees = () => {
     designation: "Graphic Designer",
     gender: "male",
     teamName: "TeamD"
-  }]);
+ }]);
 
+const [selectedTeam, setTeam] = useState("TeamB");
+
+const [] = useState();
+  
+function handleTeamSelection(event){
+  setTeam(event.target.value);
+}
+
+function handleCardClick(event){
+  const changedTeam = employees.map((emp)=> emp.id === parseInt(event.currentTarget.id)  
+                                            ?(emp.teamName === selectedTeam) ? {...emp,teamName:''}
+                                            :{...emp,teamName:selectedTeam} : emp);
+  setEmployess(changedTeam);
+}
+  
   return (
-    < main >
-    {
-      employees.map((employee) => 
-    <p>{employee.fullName}</p>
-      )
-    }
-  </main>
+    <main className="container">
+     <div className="row justify-content-center mt-3 mb-3">
+        <div className="col-6">
+          <select className="form-select form-select-lg" value={selectedTeam} onChange={handleTeamSelection}>
+            <option value="TeamA">TeamA</option>
+            <option value="TeamB">TeamB</option>
+            <option value="TeamC">TeamC</option>
+            <option value="TeamD">TeamD</option>
+          </select>
+        </div>
+       </div>
+      
+      <div className="row justify-content-center mt-3 mb-3">
+        <div className="col">
+          <div className="card-collection">
+            {
+              employees.map((e)=>(
+                <div className={(e.teamName===selectedTeam? "card m-2 addBoxShadow": "card m-2")} style={{cursor:"pointer"}} id={e.id} onClick={handleCardClick}>
+                  {(e.gender == "female") ? 
+                   <img src ={female} className="card-img-top" /> : <img src ={male} className="card-img-top" />}
+                  <div className="card-body">
+                    <h5 className="card-title">Name: {e.fullName}</h5>
+                    <p className="card-text">Designation: {e.designation}</p>
+                  </div>
+                </div>
+              ))
+            }
+            </div>
+        </div>
+      </div>
+    </main>
   )
 
 }
