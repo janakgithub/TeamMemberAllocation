@@ -1,9 +1,15 @@
-const Header = () => {
-  return(
-  <header>
-    <h1 className="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">Header</h1>
-  </header>
-    )
+const Header = ({ selectedTeam, totalMembers }) => {
+  return (
+    <header className="container">
+      <div className="row justify-content-center mt-3 mb-4">
+        <div className="col-8">
+          <h1>Team Members Allocation</h1>
+          <h2>{selectedTeam} has {totalMembers} members</h2>
+        </div>
+      </div>
+    </header>
+  )
 }
+
 
 export default Header
